@@ -37,7 +37,7 @@ Após isso, basta acessar `http://localhost` para iniciar a configuração do Wo
 ### PHPMyAdmin
 - Servidor configurado em `http://localhost:8080`
 
-## MySQL (MariaDB)
+### MySQL (MariaDB)
 - A base de dados criada será a padrão do Wordpress, criada após a configuração incial executada.
 - Se quiser gerar um backup da base atual em atividade, execute `./dump-db.sh`. 
 - Para restaurar um backup, execute `./update-db.sh`. CUIDADO: Isso sobrescreverá a base atual.
