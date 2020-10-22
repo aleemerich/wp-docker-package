@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-Este projeto é baseado no projeto de [Felipe Elia](`https://github.com/felipeelia/docker-base-env`) e tem por objetivo criar através de um arranjo de scripts e estruturas de pastas um ambiente completo para rodar o Wordpress, na sua versão mais recente com algumas ferramentas de extrema importância para quem desenvolve em WordPress.
+Este projeto é baseado no projeto de [Felipe Elia](https://github.com/felipeelia/docker-base-env) e tem por objetivo criar através de um arranjo de scripts e estruturas de pastas um ambiente completo para rodar o Wordpress, na sua versão mais recente com algumas ferramentas de extrema importância para quem desenvolve em WordPress.
 
 Neste ambiente você vai encontrar:
 1. Um servidor Web contendo a versão mais atual do `Wordpress` junto com a biblioteca `WP-Cli`
