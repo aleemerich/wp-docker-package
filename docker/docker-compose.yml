@@ -1,9 +1,7 @@
 version: '3'
-
 services:
   wordpress:
     image: wordpress
-#    image: wordpress:php-5.6 ## Imagem específica com versão específica
     links:
       - mysql
     ports:
@@ -15,7 +13,6 @@ services:
       - ./dev.ini:/usr/local/etc/php/conf.d/dev.ini
     environment:
       - XDEBUG=true
-
   mysql:
     image: mariadb
     volumes:
@@ -28,22 +25,20 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
       MYSQL_ROOT_HOST: '%'
-
- mailhog:
-   image: mailhog/mailhog
-   ports:
+  mailhog:
+    image: mailhog/mailhog
+    ports:
      - "8025:8025"
-
- phpmyadmin:
-   image: phpmyadmin/phpmyadmin
-   container_name: phpmyadmin
-   environment:
-    - PMA_ARBITRARY=1
-    - PMA_HOST=mysql
-    - PMA_USER=root
-    - PMA_PASSWORD=wordpress
-   restart: always
-   ports:
-    - 8080:80
-   volumes:
-    - /sessions
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=wordpress
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
