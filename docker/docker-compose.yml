@@ -1,7 +1,9 @@
 version: '3'
 services:
   wordpress:
-    image: wordpress
+    build: 
+      context: "../docker-image"
+      dockerfile: Dockerfile-wp
     links:
       - mysql
     ports:
