@@ -9,6 +9,9 @@ RUN set -ex;\
 		mariadb-client \
 		sudo \
 		subversion \
+		telnet \
+		iputils-ping \
+		traceroute \
 	; \
 	apt-get install -y \
 		--no-install-recommends ssl-cert \
@@ -18,6 +21,8 @@ RUN set -ex;\
 	a2ensite default-ssl; \
 	docker-php-ext-install zip; \
 	yes | pecl install xdebug
+
+RUN docker-php-ext-enable xdebug
 
 # Install wp-cli, and allow it to regenerate .htaccess files
 # Use /usr/local/bin/wp-cli.phar to run it as root
