@@ -75,7 +75,28 @@ Se trabalhar com bases de dados grandes, é aconselhável de forma manual copiar
 docker cp nome_backup.sql docker_mysql_1:/nome_backup.sql
 ````
 
+##### Configurando o VSCode para funcionar o Xdebug
+
+Para debugar o PHP do container do Worpress no VSCode dentro do seu Windows, é preciso colocar uma configuração na parte de Debug, para isso, acesse o menu "Run", depois "Open Configurations". O VSCode deverá abrir o arquivo `launch.json` para você editar. Dentro deste arquivo você deve adicionar as seguintes linhas:
+
+````sh
+"configurations": [
+        {
+            "name": "XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "pathMappings": {
+                "/var/www/html/": "${workspaceRoot}/dev",
+            }
+        }
+    ]
+````
+
+O principal ponto neste aqquivo é a configuraçao `pathMappings`. Nela você precisa ter certeza de apontar o local onde os arquivos PHP estão, tanto no container, quanto na sua máquina (isso é totalmente vinculado com "volumes").
+
+
 ## Próximos passos
-- Incorporar ferramentas para atuomação de testes PHP e Wordpress
+- Incorporar ferramentas para automação de testes PHP e Wordpress
 - Tentar usar o recurso de multisite do Wordpress para ver se funciona
 - Puder configurar mais que uma aplicação Wordpress

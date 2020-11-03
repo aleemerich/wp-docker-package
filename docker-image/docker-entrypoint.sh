@@ -18,13 +18,15 @@ then
             echo "[Xdebug]";
             echo "zend_extension=${extfile}";
             echo "xdebug.idekey=${idekey}";
-            echo "xdebug.remote_enable=1";
-            echo "xdebug.remote_connect_back=1";
-            echo "xdebug.remote_autostart=1";
+            echo "xdebug.remote_enable=on";
+            echo "xdebug.remote_connect_back=off";
+            echo "xdebug.remote_autostart=on";
+            echo "xdebug.remote_host = host.docker.internal";
             echo "xdebug.remote_port=${remote_port}";
         } > $inifile;
     fi
     unset extfile remote_port idekey;
+    echo "XDEBUG configured in 9000 port";
 fi
 
 exec "$@"
