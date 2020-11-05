@@ -32,10 +32,11 @@ Você também pode fazer o download em ZIP deste projeto e descompactar onde voc
 
 Acesse a pasta `docker` dentro do projeto e execute o comando
 ````sh
-docker-compose up
+docker-compose up --build
 ````
+Após a primeira execução, você não precisa mais usar o parâmetro `--build`, a menos que faça alguma modificação no arquivo `docker-compose.yml`.
 
-Após isso, basta acessar `http://localhost` para iniciar a configuração do Wordpress, ou seja, você estará iniciando uma versão totalmente limpa do Wordpress
+Depois que o docker subir as configurações e ficar disponível, basta acessar `http://localhost` para iniciar a configuração do Wordpress, ou seja, você estará iniciando uma versão totalmente limpa do Wordpress
 
 **Alguns avisos:** 
 - O servidor que será iniciado está totalmente na sua versão orininal (limpo)
