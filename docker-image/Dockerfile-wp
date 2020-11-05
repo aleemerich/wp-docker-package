@@ -22,8 +22,6 @@ RUN set -ex;\
 	docker-php-ext-install zip; \
 	yes | pecl install xdebug
 
-RUN docker-php-ext-enable xdebug
-
 # Install wp-cli, and allow it to regenerate .htaccess files
 # Use /usr/local/bin/wp-cli.phar to run it as root
 # and wp to run it as www-data (your own user)

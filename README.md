@@ -22,28 +22,45 @@ Neste ambiente você vai encontrar:
 - Está é uma ferramenta para desenvolvimento, **não é recomendado** usar este ambiente para criação de um *ambiente de produção*. 
 - Obviamente, é necessário que você tenha do Docker previmente configurado em sua máquina.
 
-## Como instalar
-
+## Como criar seu ambiente
 Clone o repositório do GitHub
 ````sh
 git clone https://github.com/aleemerich/wp-docker-package.git
 ````
 Você também pode fazer o download em ZIP deste projeto e descompactar onde você ache mais conveniente. Se quiser retirar o versionamento GIT deste projeto, apague a pasta `.git`.
 
+##### Subir o ambiente pela primeira vez
 Acesse a pasta `docker` dentro do projeto e execute o comando
 ````sh
 docker-compose up --build
 ````
-Após a primeira execução, você não precisa mais usar o parâmetro `--build`, a menos que faça alguma modificação no arquivo `docker-compose.yml`.
+O Docker irá usar a imagem em `docker-image/Dockerfile-wp` para compilar a versão inicial do servidor Apache/PHP/Wordpress além de também realizar as outras ações referente aos outros servidores e serviços.
 
-Depois que o docker subir as configurações e ficar disponível, basta acessar `http://localhost` para iniciar a configuração do Wordpress, ou seja, você estará iniciando uma versão totalmente limpa do Wordpress
+O script também irá checar se já existe uma versão do Wordpress na pasta `dev/`. Caso esta pasta esteja em branco, a última versão do Wordpress será copiada para esta pasta. Caso já exista uma versão do Wordpress na pasta, será mantido o que existe.
 
-**Alguns avisos:** 
-- O servidor que será iniciado está totalmente na sua versão orininal (limpo)
-- Os dados referente a aplicação Wordpress serão descarregado em `dev/`, portanto seu desenvolvimento deve se concentrar nessa pasta, mas este projeto não versiona a pasta `dev/`, logo usar o git deste projeto **não** versionará nada que fizer em `/dev`. *Dica:* crie um projeto git para seu plugin e/ou tema e trate como um projeto extra, com pull e push próprios.
+Assim que o ambiente estiver funcional, basta acessar `http://localhost` para iniciar a configuração do Wordpress, caso seja usado um Wordpress que acabaou de ser baixado. Caso precise das credenciais já criadas nesse ambiente, seguem abaixo:
+- Nome do banco: **wordpress**
+- Nome do usuário: **wordpress**
+- Senha: **wordpress**
+- Servidor do banco de dados: **mysql**
+- Prefixo: *fica a seu critério* (padrão: *wp*)
+
+As seguinte URL também ficarão disponíveis:
+- PHPMyAdmin: http://localhost:8080/
+- MailHog: http://localhost:8025/
+
+#### As próximas execuções
+Nas próximas vezes que for subir seu ambiente, basta acessar a basta 'docker/' e usar o comando
+````sh
+docker-compose up
+````
+Volta a usar o parâmetro `--build` se fizer qualquer alteração nos arquivos do Docker ou .sh usados dentro de `docker/` ou `docker-image/`.
+
+## Fique atento 
+- Seu desenvolvimento deve se concentrar dentro da pasta `dev/`, mas este projeto não versiona a pasta `dev/`, logo usar o git deste projeto **não** versionará nada que fizer em `dev/`. *Dica:* crie um projeto git para seu plugin e/ou tema e trate como um projeto extra, com pull e push próprios.
 - Se for usar plugins de terceiros, é preciso fazer a instalação inicial apenas, depois esses plugins ficarão dentro da estrutura Wordpress contida em `dev/`. Porém, *se acontecer algo ao seu micro e a pasta `dev` se perder*, vocë terá que possivelmente refazer a instalação dos plugins ou ao menos voltar os arquivos perdidos.
 - Caso precise definir novas confogurações para o PHP, edite o arquivo `docker/dev.ini`.
-
+- Se o serviço que sobre o servidor Apache/Wordpress acusar o erro *exec user process caused "no such file or directory"*, altere o tipo de quebra de linha do arquivo *"docker-image/docker-entrypoint.sh"* para *'LF'* (ao invés de *'CRLF'*). Essa confusão de padrão Linux e Windows para quebra de linha pode levar a erros na execução de arquivos bash (.sh).
 
 ## Informações complementares
 Abaixo algumas informações que podem auxiliar você no trabalho com este projeto
