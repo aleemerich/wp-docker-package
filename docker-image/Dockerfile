@@ -9,9 +9,7 @@ RUN set -ex;\
 		mariadb-client \
 		sudo \
 		subversion \
-#		telnet \
-#		iputils-ping \
-#		traceroute \
+		unzip \
 	; \
 	apt-get install -y \
 		--no-install-recommends ssl-cert \
@@ -20,7 +18,6 @@ RUN set -ex;\
 	a2enmod ssl; \
 	a2ensite default-ssl; \
 	docker-php-ext-install zip; 
-#	yes | pecl install xdebug
 
 # Git config
 RUN git config --global user.name "WP-DOCKER-PACKAGE Project"; \
@@ -28,22 +25,20 @@ RUN git config --global user.name "WP-DOCKER-PACKAGE Project"; \
 
 # PHPCS
 RUN cd /var/www; \
-	git clone https://github.com/squizlabs/PHP_CodeSniffer.git phpcs; \
-	git clone https://github.com/PHPCSStandards/PHPCSUtils.git phpcs-utils; \
-	git clone https://github.com/sirbrillig/phpcs-variable-analysis.git phpcs-varanalysis; \
-	git clone https://github.com/WordPress/WordPress-Coding-Standards.git phpcs-wpcs; \
-	git clone https://github.com/Automattic/VIP-Coding-Standards.git phpcs-vipcs;
-
-RUN	echo 'alias phpcs="php /var/www/phpcs/bin/phpcs"' >> ~/.bashrc; \
-    /var/www/phpcs/bin/phpcs --config-set installed_paths /var/www/phpcs-utils/,/var/www/phpcs-varanalysis/,/var/www/phpcs-wpcs/,/var/www/phpcs-vipcs/;
+	git clone https://github.com/squizlabs/PHP_CodeSniffer.git phpcs;
+COPY analysis.zip /var/www/analysis.zip
+COPY phpcsutils.zip /var/www/phpcsutils.zip
+COPY vip_cs.zip /var/www/vip_cs.zip
+COPY wpcs.zip /var/www/wpcs.zip
+RUN cd /var/www; \
+	unzip analysis.zip; \
+	unzip phpcsutils.zip; \
+	unzip vip_cs.zip; \
+	unzip wpcs.zip; 
+RUN	echo 'alias phpcs="php /var/www/phpcs/bin/phpcs"' >> ~/.bashrc;
+RUN	php /var/www/phpcs/bin/phpcs --config-set installed_paths /var/www/phpcs,/var/www/analysis,/var/www/phpcsutils,/var/www/vip_cs,/var/www/wpcs;
 
 ### ToDo FUTURO: Install Xdebug manual
-# RUN git clone https://github.com/xdebug/xdebug.git; \
-#     cd xdebug/; \
-#     phpize; \
-#     ./configure --enable-xdebug; \
-# 	make; \
-# 	make install;
 
 ### ToDo FUTURO: Node + libraries + Gulp
 
@@ -54,7 +49,6 @@ VOLUME /var/www/html
 RUN usermod --non-unique --uid 1000 www-data \
   && groupmod --non-unique --gid 1000 www-data \
   && chown -R www-data:www-data /var/www
-
 EXPOSE 80 443
 
 # Overrides wp docker default entrypoint
