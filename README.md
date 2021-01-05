@@ -26,7 +26,7 @@ Neste ambiente você vai encontrar:
 ## Como criar seu ambiente
 Clone o repositório do GitHub
 ````sh
-git clone https://github.com/aleemerich/wp-docker-package.git
+git clone https://github.com/aleemerichxpi/docker-wp.git
 ````
 Você também pode fazer o download em ZIP deste projeto e descompactar onde você ache mais conveniente. Se quiser retirar o versionamento GIT deste projeto, apague a pasta `.git`.
 
