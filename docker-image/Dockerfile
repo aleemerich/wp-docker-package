@@ -72,6 +72,7 @@ VOLUME /var/www/html
 RUN usermod --non-unique --uid 1000 www-data \
   && groupmod --non-unique --gid 1000 www-data \
   && chown -R www-data:www-data /var/www
+RUN chmod a+rwx -R /var/www/html
 EXPOSE 80 443
 
 # Overrides wp docker default entrypoint
