@@ -1,6 +1,10 @@
 # Ambiente para desenvolemento em Wordpress
 Este é um projeto pessoal para estudo e que tem como objetivo criar um ambiente totalmente automatizado para desenvolvimento Wordpress com uso de Docker e outras ferramentas de automação fortemente usadas no mercado.
 
+# Premissas
+- Você precisa ter o Docker instalado em sua máquina.
+- Você também vai precisar do Python instalado para rodar algumas automações.
+
 # Visão geral
 
 Este projeto é baseado no projeto de [Felipe Elia](https://github.com/felipeelia/docker-base-env) e tem por objetivo criar, através de um arranjo de scripts, Dockerfile, Docker-compose e estruturas de pastas, um ambiente completo de desenvolvimento para Wordpress, na sua versão mais recente. Além disso, será agregado algumas ferramentas de extrema importância para desenvolvedores em geral.
@@ -13,16 +17,16 @@ Neste ambiente você vai encontrar:
 1.4 Biblioteca `WP-Cli` ativa e funcional
 1.5 Ferramenta de análise de vulnerabilidade `PHPCS`
 1.6 Ferramenta `Xdbug` já configurada
+1.7 Biblioteca PHP `memcached extension` para uso Memcached (https://pecl.php.net/package/memcache)
 2. Um servidor de banco de dados `MySQL`
 3. Um servidor web rodando `PHPMyAdmin` em sua última versão
-4. Um servidor com uma ferramenta de intercepção de e-mail chamada `MailHog` (esta ferramenta interceptará todos os e-mails disparados pelo servidor para que você veja tudo o que seu servidor dispara).
+4. Um servidor `Mencached` para testes e usos de recurso de cache permanente no WordPress (http://danga.com/memcached)
 5. Scripts para criar backups do banco de dados e restarações de outras bases.
 
 **Lembre-se:** 
 - Este projeto permite você rodar apenas *uma* (01) aplicação Wordpress. Para trabalhar com várias, é perciso criar um repositório para cada (cabe ver se é viável).
 - Está é uma ferramenta para desenvolvimento, **não é recomendado** usar este ambiente para criação de um *ambiente de produção*. 
-- Obviamente, é necessário que você tenha do Docker previmente configurado em sua máquina.
-
+- Se você quiser configurar o Memcached e saber mais como usar cache, consulte a referência direta do Wordpress em https://developer.wordpress.org/reference/classes/wp_object_cache/
 ## Como criar seu ambiente
 Clone o repositório do GitHub
 ````sh
@@ -45,10 +49,7 @@ Assim que o ambiente estiver funcional, basta acessar `http://localhost` para in
 - Senha: **password**
 - Servidor do banco de dados: **mysql**
 - Prefixo: *fica a seu critério* (padrão: *wp*)
-
-As seguinte URL também ficarão disponíveis:
-- PHPMyAdmin: http://localhost:8080/
-- MailHog: http://localhost:8025/
+- Para acessar o PHPMyAdmin, use http://localhost:8080/
 
 #### As próximas execuções
 Nas próximas vezes que for subir seu ambiente, basta acessar a basta 'docker/' e usar o comando
@@ -74,11 +75,6 @@ Se qusier criar apenas essa imagem (se utilizar todos os serviços do Docker Com
 cd /docker-image
 docker build -t <nome da imagem que quiser dar> -f .\Dockerfile .
 ````
-
-
-##### MailHog
-- Servidor configurado em `http://localhost:8025`
-- Para funcionar corretamente, mantenha o arquivo `docker/dev.ini`.
 
 ##### PHPMyAdmin
 - Servidor configurado em `http://localhost:8080`
@@ -121,7 +117,5 @@ O principal ponto neste arquivo é a configuraçao `pathMappings`. Nela você pr
 
 
 ## Próximos passos
-- Incorporar condição para configurar Wordpress na versão WPVIP
-- Incorporar ferramentas para automação de testes PHP e Wordpress
 - Tentar usar o recurso de multisite do Wordpress para ver se funciona
 - Poder configurar mais que uma aplicação Wordpress

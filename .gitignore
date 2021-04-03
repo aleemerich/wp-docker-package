@@ -1,5 +1,4 @@
-/bk/
 /db_data
-/wordpress/
 /.vscode
+/wordpress/
 *.code-workspace
